@@ -33,11 +33,11 @@ public class Cliente {
 		this.nDocumento = nDocumento;
 	}
 
-	public String getnConta() {
+	public int getnConta() {
 		return nConta;
 	}
 
-	public void setnConta(String nConta) {
+	public void setnConta(int nConta) {
 		this.nConta = nConta;
 	}
 
