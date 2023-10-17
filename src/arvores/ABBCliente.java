@@ -1,8 +1,10 @@
 package arvores;
 
+import java.util.List;
+
 import banco.Cliente;
 
-public class ABBPessoaJ {
+public class ABBCliente {
 	private class ARVORE {
 		Cliente cliente;
 		ARVORE esq, dir;
@@ -23,11 +25,23 @@ public class ABBPessoaJ {
 		return p;
 	}
 
-	public int contaNos(ARVORE p, int cont) {
+	public int contaClientes(ARVORE p, int cont) {
 		if (p != null) {
 			cont++;
-			cont = contaNos(p.esq, cont);
-			cont = contaNos(p.dir, cont);
+			cont = contaClientes(p.esq, cont);
+			cont = contaClientes(p.dir, cont);
+		}
+		return cont;
+	}
+	
+	public int contaSaldoOferta(ARVORE p, int cont, double saldo) {
+		if (p != null) {
+			if(p.cliente.getSaldoAplicacao() >= saldo) {
+				cont++;
+				
+			}
+			cont = contaClientes(p.esq, cont);
+			cont = contaClientes(p.dir, cont);
 		}
 		return cont;
 	}
@@ -36,7 +50,7 @@ public class ABBPessoaJ {
 		if (p != null) {
 			if (nDocumento.equalsIgnoreCase(p.cliente.getnDocumento())) {
 				return p.cliente;
-			}else {
+			} else {
 				Cliente clienteEsq = consulta(p.esq, nDocumento);
 				if (clienteEsq == null) {
 					return consulta(p.dir, nDocumento);
@@ -45,32 +59,36 @@ public class ABBPessoaJ {
 			}
 		}
 		return null;
-		
+
 	}
 
-	/*
-	 * public int contaConsulta(ARVORE p, int info, int cont) { if (p != null) {
-	 * cont++; if (info == p.cliente) return cont; else { if (info < p.cliente) cont
-	 * = contaConsulta(p.esq, info, cont); else cont = contaConsulta(p.dir, info,
-	 * cont); } } return cont; }
-	 */
+	public Cliente consultaConta(ARVORE p, int nConta) {
+		if (p != null) {
+			if (nConta == p.cliente.getnConta()) {
+				return p.cliente;
+			} else {
+				Cliente clienteEsq = consultaConta(p.esq, nConta);
+				if (clienteEsq == null) {
+					return consultaConta(p.dir, nConta);
+				}
+				return clienteEsq;
+			}
+		}
+		return null;
+
+	}
 
 	public ARVORE removeValor(ARVORE p, Cliente cliente) {
 		if (p != null) {
 			if (cliente.getSaldoAplicacao() == p.cliente.getSaldoAplicacao()) {
-				if (p.esq == null && p.dir == null) // nó a ser removido é nó folha
+				if (p.esq == null && p.dir == null)
 					return null;
-				if (p.esq == null) { // se não há sub-árvore esquerda o ponteiro passa apontar para a sub-árvore
-										// direita
+				if (p.esq == null) {
 					return p.dir;
 				} else {
-					if (p.dir == null) { // se não há sub-árvore direita o ponteiro passa apontar para a sub-árvore
-											// esquerda
+					if (p.dir == null) {
 						return p.esq;
-					} else { /*
-								 * o nó a ser retirado possui sub-arvore esquerda e direita, então o nó que será
-								 * retirado deve-se encontrar o menor valor na sub-árvore á direita
-								 */
+					} else {
 						ARVORE aux, ref;
 						ref = p.dir;
 						aux = p.dir;
@@ -80,7 +98,7 @@ public class ABBPessoaJ {
 						return ref;
 					}
 				}
-			} else { // procura dado a ser removido na ABB
+			} else {
 				if (cliente.getSaldoAplicacao() < p.cliente.getSaldoAplicacao())
 					p.esq = removeValor(p.esq, cliente);
 				else
@@ -98,4 +116,32 @@ public class ABBPessoaJ {
 		}
 	}
 
+	public void clienteOferta(ARVORE p, double oferta, List<Cliente> lista) {
+
+		if (p != null) {
+			if (p.dir != null) {
+				clienteOferta(p.dir, oferta, lista);
+			}
+			if (p.cliente.getSaldoAplicacao() >= oferta) {
+				lista.add(p.cliente);
+			} else {
+				return;
+			}
+
+			if (p.esq != null) {
+				clienteOferta(p.esq, oferta, lista);
+			}
+
+		}
+	}
+
+	public Cliente atualizaSaldo(ARVORE p, int nConta, double saldo) {
+		Cliente cliente = null;
+		if (p != null) {
+			cliente = consultaConta(p, nConta);
+			cliente.setSaldoAplicacao(saldo);
+		}
+		return cliente;
+
+	}
 }

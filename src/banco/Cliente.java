@@ -56,7 +56,11 @@ public class Cliente {
 	public void setSaldoAplicacao(Double saldoAplicacao) {
 		this.saldoAplicacao = saldoAplicacao;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", nDocumento=" + nDocumento + ", nConta=" + nConta + ", tipoConta="
+				+ tipoConta + ", saldoAplicacao=" + saldoAplicacao + "]";
+	}
 	
 }
