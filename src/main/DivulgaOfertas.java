@@ -26,10 +26,12 @@ public class DivulgaOfertas {
 		double saldo = 0;
 
 		do {
+			System.out.println("\n------- BEM VINDO AO MENU DE OPÇÕES -------");
 			System.out.println(" 0 - Encerrar o programa");
 			System.out.println(" 1 - Inscrição cliente");
 			System.out.println(" 2 - Oferta de novo serviço e/ou aplicação");
 			System.out.println(" 3 – Entrar no Sub-Menu ");
+			System.out.println("-------------------------------------------");
 			opcao = le.nextInt();
 			switch (opcao) {
 			case 1:
@@ -93,7 +95,8 @@ public class DivulgaOfertas {
 				if (op == 1) {
 					abbF.clienteOferta(abbF.root, saldo, listaPF);
 					while (!listaPF.isEmpty()) {
-						System.out.println("Deseja aceitar a oferta? - 1. Sim 2. Não");
+						System.out.println("Cliente "+ listaPF.get(0).getNome());
+						System.out.print("Deseja aceitar a oferta? - 1. Sim  2. Não: ");
 						int resp = le.nextInt();
 
 						if (resp == 1) {
@@ -111,7 +114,8 @@ public class DivulgaOfertas {
 				} else if (op == 2) {
 					abbJ.clienteOferta(abbJ.root, saldo, listaPJ);
 					while (!listaPJ.isEmpty()) {
-						System.out.println("Deseja aceitar a oferta? - 1. Sim 2. Não");
+						System.out.println("Cliente "+ listaPJ.get(0).getNome());
+						System.out.print("Deseja aceitar a oferta? - 1. Sim 2. Não: ");
 						int resp = le.nextInt();
 
 						if (resp == 1) {
@@ -131,27 +135,28 @@ public class DivulgaOfertas {
 			case 3:
 				int opcaoSubMenu = -1;
 				do {
-					System.out.println("---- SUBMENU DE PESQUISA ----");
+					System.out.println("----------- SUBMENU DE PESQUISA -----------");
 					System.out.println(" 1 - Consultar cliente");
 					System.out.println(" 2 - Atualizar saldo");
 					System.out.println(" 3 - Quantidade de clientes cadastrados");
-					System.out.println(" 4 – Quantidade de clientes com saldo acima da oferta ");
+					System.out.println(" 4 – Quantidade de clientes com para a oferta ");
 					System.out.println(" 5 – Voltar para o Menu Principal ");
+					System.out.println("-------------------------------------------");
 					opcaoSubMenu = le.nextInt();
 
 					switch (opcaoSubMenu) {
 
 					case 1:
-						System.out.println("Digite 1. PF ou 2. PJ: ");
+						System.out.print("Digite 1. PF ou 2. PJ: ");
 						int tipoPessoa = le.nextInt();
 						if (tipoPessoa == 1) {
-							System.out.println("Digite o seu CPF: ");
+							System.out.print("Digite o seu CPF: ");
 							String nDocumento = le.next();
 							Cliente cF = abbF.consulta(abbF.root, nDocumento);
 							System.out.println(cF);
 
 						} else if (tipoPessoa == 2) {
-							System.out.println("Digite o seu CNPJ: ");
+							System.out.print("Digite o seu CNPJ: ");
 							String nDocumento = le.next();
 							Cliente cJ = abbJ.consulta(abbJ.root, nDocumento);
 							System.out.println(cJ);
@@ -160,20 +165,30 @@ public class DivulgaOfertas {
 						}
 						break;
 
-					case 2: //inacabado
-						System.out.println("Digite 1. PF ou 2. PJ: ");
+					case 2:
+						System.out.print("Digite 1. PF ou 2. PJ: ");
 						tipoPessoa = le.nextInt();
 						if (tipoPessoa == 1) {
-							System.out.println("Digite o seu CPF: ");
-							String nDocumento = le.next();
-							Cliente cF = abbF.consulta(abbF.root, nDocumento);
+							System.out.print("Digite o número da conta: ");
+							numeroConta = le.nextInt();
+
+							Cliente cF = abbF.consultaConta(abbF.root, numeroConta);
+							System.out.print("Digite o novo saldo: R$ ");
+							saldo = le.nextDouble();
+							abbF.atualizaSaldo(abbF.root, numeroConta, saldo);
+							System.out.println("Saldo atualizado com sucesso!");
 							System.out.println(cF);
 
 						} else if (tipoPessoa == 2) {
-							System.out.println("Digite o seu CNPJ: ");
-							String nDocumento = le.next();
-							Cliente cJ = abbJ.consulta(abbJ.root, nDocumento);
+							System.out.print("Digite o número da conta: ");
+							numeroConta = le.nextInt();
+							Cliente cJ = abbJ.consultaConta(abbJ.root, numeroConta);
+							System.out.print("Digite o novo saldo: R$ ");
+							saldo = le.nextDouble();
+							abbJ.atualizaSaldo(abbJ.root, numeroConta, saldo);
+							System.out.println("Saldo atualizado com sucesso!");
 							System.out.println(cJ);
+
 						} else {
 							System.out.println("Resposta inválida, digite novamente!");
 						}
@@ -181,7 +196,7 @@ public class DivulgaOfertas {
 						break;
 
 					case 3:
-						System.out.println("Digite 1. PF ou 2. PJ: ");
+						System.out.print("Digite 1. PF ou 2. PJ: ");
 						tipoPessoa = le.nextInt();
 						if (tipoPessoa == 1) {
 							System.out.println(
@@ -195,9 +210,9 @@ public class DivulgaOfertas {
 						break;
 
 					case 4:
-						System.out.println("Digite 1. PF ou 2. PJ: ");
+						System.out.print("Digite 1. PF ou 2. PJ: ");
 						tipoPessoa = le.nextInt();
-						System.out.println("Digite o valor da oferta: R$");
+						System.out.print("Digite o valor da oferta: R$");
 						double valorOferta = le.nextDouble();
 						if (tipoPessoa == 1) {
 							System.out.println("O total de Clientes com saldo positivo para a oferta é de: "
@@ -224,9 +239,10 @@ public class DivulgaOfertas {
 
 		} while (opcao != 0);
 		System.out.println("Clientes que não aceitaram ou não estavam adequados para a oferta");
-		/*
-		 * Esvazia as ABBs apresentando todos os clientes que aguardam nova portunidade
-		 */
+
+		abbF.removeTodosCliente(abbF.root);
+		abbJ.removeTodosCliente(abbJ.root);
+
 		le.close();
 
 	}

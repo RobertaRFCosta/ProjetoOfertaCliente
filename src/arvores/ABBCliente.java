@@ -33,12 +33,12 @@ public class ABBCliente {
 		}
 		return cont;
 	}
-	
+
 	public int contaSaldoOferta(ARVORE p, int cont, double saldo) {
 		if (p != null) {
-			if(p.cliente.getSaldoAplicacao() >= saldo) {
+			if (p.cliente.getSaldoAplicacao() >= saldo) {
 				cont++;
-				
+
 			}
 			cont = contaClientes(p.esq, cont);
 			cont = contaClientes(p.dir, cont);
@@ -108,13 +108,23 @@ public class ABBCliente {
 		return p;
 	}
 
-	public void listaEmOrdem(ARVORE p) {
+	public void listaCliente(ARVORE p) {
 		if (p != null) {
-			listaEmOrdem(p.esq);
+			listaCliente(p.esq);
 			System.out.print(" " + p.cliente);
-			listaEmOrdem(p.dir);
+			listaCliente(p.dir);
 		}
 	}
+
+	public void removeTodosCliente(ARVORE p) {
+		if (p != null) {
+			removeTodosCliente(p.esq);
+			removeTodosCliente(p.dir);
+			System.out.print("Removendo cliente: " + p.cliente);
+			removeValor(root, p.cliente);
+		}
+	}
+
 
 	public void clienteOferta(ARVORE p, double oferta, List<Cliente> lista) {
 
@@ -140,6 +150,8 @@ public class ABBCliente {
 		if (p != null) {
 			cliente = consultaConta(p, nConta);
 			cliente.setSaldoAplicacao(saldo);
+			removeValor(p, cliente);
+			inserir(p, cliente);
 		}
 		return cliente;
 
