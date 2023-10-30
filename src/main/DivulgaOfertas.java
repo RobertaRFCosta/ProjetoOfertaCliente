@@ -10,8 +10,11 @@ import banco.Cliente;
 public class DivulgaOfertas {
 
 	/*
-	 * Anna Cristina RM 94795 Arthur Mesquita RM 93186 Felipe Palmeira RM 92835
-	 * Roberta Costa RM 93803 Rodrigo Ronchi RM 93262
+	 * Anna Cristina RM 94795
+	 * Arthur Mesquita RM 93186
+	 * Felipe Palmeira RM 92835
+	 * Roberta Costa RM 93803
+	 * Rodrigo Ronchi RM 93262
 	 */
 
 	public static void main(String[] args) {
@@ -101,7 +104,7 @@ public class DivulgaOfertas {
 
 						if (resp == 1) {
 							System.out.println("Você aceitou a oferta! Agradeçemos a preferência.");
-							abbF.removeValor(abbF.root, listaPF.get(0));
+							abbF.root = abbF.removeValor(abbF.root, listaPF.get(0));
 							listaPF.remove(0);
 						} else if (resp == 2) {
 							System.out.println("Você não aceitou a oferta!");
@@ -120,7 +123,7 @@ public class DivulgaOfertas {
 
 						if (resp == 1) {
 							System.out.println("Você aceitou a oferta! Agradeçemos a preferência.");
-							abbF.removeValor(abbF.root, listaPJ.get(0));
+							abbJ.root = abbJ.removeValor(abbJ.root, listaPJ.get(0));
 							listaPJ.remove(0);
 						} else if (resp == 2) {
 							System.out.println("Você não aceitou a oferta!");
@@ -139,7 +142,7 @@ public class DivulgaOfertas {
 					System.out.println(" 1 - Consultar cliente");
 					System.out.println(" 2 - Atualizar saldo");
 					System.out.println(" 3 - Quantidade de clientes cadastrados");
-					System.out.println(" 4 – Quantidade de clientes com para a oferta ");
+					System.out.println(" 4 – Quantidade de clientes com saldo para a oferta ");
 					System.out.println(" 5 – Voltar para o Menu Principal ");
 					System.out.println("-------------------------------------------");
 					opcaoSubMenu = le.nextInt();
@@ -172,20 +175,19 @@ public class DivulgaOfertas {
 							System.out.print("Digite o número da conta: ");
 							numeroConta = le.nextInt();
 
-							Cliente cF = abbF.consultaConta(abbF.root, numeroConta);
 							System.out.print("Digite o novo saldo: R$ ");
 							saldo = le.nextDouble();
-							abbF.atualizaSaldo(abbF.root, numeroConta, saldo);
+							Cliente cF = abbF.atualizaSaldo(abbF.root, numeroConta, saldo);
 							System.out.println("Saldo atualizado com sucesso!");
 							System.out.println(cF);
 
 						} else if (tipoPessoa == 2) {
 							System.out.print("Digite o número da conta: ");
 							numeroConta = le.nextInt();
-							Cliente cJ = abbJ.consultaConta(abbJ.root, numeroConta);
+							
 							System.out.print("Digite o novo saldo: R$ ");
 							saldo = le.nextDouble();
-							abbJ.atualizaSaldo(abbJ.root, numeroConta, saldo);
+							Cliente cJ = abbJ.atualizaSaldo(abbJ.root, numeroConta, saldo);
 							System.out.println("Saldo atualizado com sucesso!");
 							System.out.println(cJ);
 

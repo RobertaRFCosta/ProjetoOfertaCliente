@@ -49,11 +49,11 @@ public class Cliente {
 		this.tipoConta = tipoConta;
 	}
 
-	public Double getSaldoAplicacao() {
+	public double getSaldoAplicacao() {
 		return saldoAplicacao;
 	}
 
-	public void setSaldoAplicacao(Double saldoAplicacao) {
+	public void setSaldoAplicacao(double saldoAplicacao) {
 		this.saldoAplicacao = saldoAplicacao;
 	}
 

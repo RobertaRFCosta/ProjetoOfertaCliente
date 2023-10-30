@@ -40,8 +40,8 @@ public class ABBCliente {
 				cont++;
 
 			}
-			cont = contaClientes(p.esq, cont);
-			cont = contaClientes(p.dir, cont);
+			cont = contaSaldoOferta(p.esq, cont, saldo);
+			cont = contaSaldoOferta(p.dir, cont, saldo);
 		}
 		return cont;
 	}
@@ -149,8 +149,8 @@ public class ABBCliente {
 		Cliente cliente = null;
 		if (p != null) {
 			cliente = consultaConta(p, nConta);
-			cliente.setSaldoAplicacao(saldo);
 			removeValor(p, cliente);
+			cliente.setSaldoAplicacao(saldo);
 			inserir(p, cliente);
 		}
 		return cliente;
