@@ -9,14 +9,6 @@ import banco.Cliente;
 
 public class DivulgaOfertas {
 
-	/*
-	 * Anna Cristina RM 94795
-	 * Arthur Mesquita RM 93186
-	 * Felipe Palmeira RM 92835
-	 * Roberta Costa RM 93803
-	 * Rodrigo Ronchi RM 93262
-	 */
-
 	public static void main(String[] args) {
 		Scanner le = new Scanner(System.in);
 
